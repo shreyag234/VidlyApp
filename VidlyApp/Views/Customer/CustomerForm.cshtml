@@ -1,0 +1,49 @@
+﻿@model VidlyApp.ViewModel.CustomerFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+@*this beginform method renders the <form> tag
+    use @using to render the closing tag as well*@
+@using (Html.BeginForm("Save", "Customer"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @*using @Htlm helper method automatically supports validation and allows
+            you to customize the textboxes using bootstrap classes*@
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Name)
+    </div>
+
+    @*adding a drop down list for membership types *@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "MembershipName"), "Select Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthDate)
+        @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.BirthDate)
+    </div>
+
+    @*a new markup for checkbox : use get bootstrap and under CSS*@
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed to NewsLetter?
+        </label>
+    </div>
+    @* a hidden tag for ID*@
+    @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+ 
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+ }
+

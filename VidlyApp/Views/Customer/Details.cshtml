@@ -1,0 +1,28 @@
+﻿@model VidlyApp.Models.Customer
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+    <table class="table table-bordered table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Membership Type</th>
+                <th>Birth Date<th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.MembershipType.MembershipName</td>
+                    <td>@Model.BirthDate</td>
+                </tr>
+            
+        </tbody>
+    </table>
+
+
